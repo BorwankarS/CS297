@@ -8,6 +8,7 @@ var input=fs.readFileSync('./input.js','utf8').match(expression);
 output = firstLayerEncryption(input);
 outputHex = convertToHex(output)
 console.log(outputHex);
+console.log(typeof(outputHex));
 
 
 
@@ -20,7 +21,6 @@ function firstLayerEncryption(input) {
   }
   return output;
 }
-
 //Convert to HEX value
 function convertToHex(input) {
   var i;
@@ -29,4 +29,13 @@ function convertToHex(input) {
     output[i] = (input[i].charCodeAt(0)).toString(16);
   }
   return output;
+}
+/*--- Write to File---*/
+function writeToFile(input) {
+  fs.writeFile("output.js",input,'utf8', function(err) {
+      if(err) {
+          return console.log(err);
+      }
+      console.log("The file was saved!");
+  });
 }
