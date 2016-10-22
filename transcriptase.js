@@ -30,6 +30,19 @@ function convertToHex(input) {
   }
   return output;
 }
+//Homophonic Cipher
+function secondLayerEncryption(input) {
+  var output = [];
+  var i;
+  /* Implement Homophonic Cipher
+
+
+  */
+  return output;
+}
+function thirdLayerEncryption(input) {
+
+}
 /*--- Write to File---*/
 function writeToFile(input) {
   fs.writeFile("output.js",input,'utf8', function(err) {
