@@ -6,10 +6,14 @@ seedrandom(1, {global: true});
 var expression = /[^\n\s\r]/igm;
 var input=fs.readFileSync('./input.js','utf8').match(expression);
 output = firstLayerEncryption(input);
-outputHex = convertToHex(output)
+outputHex = convertToHex(output);
 
 var tokenized = countFrequncy(outputHex);
-console.log(tokenized);
+
+var generatedKey = secondLayerEncryption(tokenized);
+console.log(generatedKey);
+
+
 
 //First Layer of Encryption : XOR with the random number
 function firstLayerEncryption(input) {
@@ -20,6 +24,7 @@ function firstLayerEncryption(input) {
   }
   return output;
 }
+
 //Convert to HEX value
 function convertToHex(input) {
   var i;
@@ -65,6 +70,8 @@ function countFrequncy(input) {
       k++;
     }
   }
+  writeToFile(tokenStream);
+
   i=0;
   j=0;
   for (i in tokenStream) {
@@ -119,7 +126,6 @@ function countFrequncy(input) {
         break;
     }
   }
-
   var sortable = [];
   for (var count in countOfOccur)
       sortable.push([count, countOfOccur[count]])
@@ -127,22 +133,32 @@ function countFrequncy(input) {
             function(a, b) {
                 return b[1] - a[1]
               })
-    //console.log(sortable);
-  return tokenStream;
+  return sortable;
 }
-//Homophonic Cipher
+
+/* --- Homophonic Cipher --- */
 function secondLayerEncryption(input) {
-  var output = [];
-  var i;
-  /* Implement Homophonic Cipher
-
-
-  */
-  return output;
+  var englishAlphaFreq = ["E","T","A","O","I","N","S","R","H","D","L","U","C",
+                          "M","F","Y","W","G","P","B","V","K","X","Q","J","Z"];
+  var keyGenerator = [];
+  var i=0,j=0;
+  for (i=0;i<input.length;i++) {
+    if (i < 10 ) {
+      keyGenerator[input[i][0]] = englishAlphaFreq[j]+englishAlphaFreq[j+1];
+      j=j+2;
+    }
+    else {
+      keyGenerator[input[i][0]] = englishAlphaFreq[j];
+      j=j+1;
+    }
+  }
+  return keyGenerator;
 }
+
+
 function thirdLayerEncryption(input) {
-
 }
+
 /*--- Write to File---*/
 function writeToFile(input) {
   fs.writeFile("output.js",input,'utf8', function(err) {
