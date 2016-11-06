@@ -7,10 +7,12 @@ var expression = /[^\n\s\r]/igm;
 var input=fs.readFileSync('./input.js','utf8').match(expression);
 output = firstLayerEncryption(input);
 outputHex = convertToHex(output);
-
+/* tokenized[0] = token stream of input
+   tokenized[1] = frequency count of tokens in descending order
+*/
 var tokenized = countFrequncy(outputHex);
-
-var generatedKey = secondLayerEncryption(tokenized);
+console.log(tokenized[0]);
+var generatedKey = secondLayerEncryption(tokenized[1]);
 console.log(generatedKey);
 
 
@@ -133,7 +135,9 @@ function countFrequncy(input) {
             function(a, b) {
                 return b[1] - a[1]
               })
-  return sortable;
+  output[0] = tokenStream;
+  output[1] = sortable;
+  return output;
 }
 
 /* --- Homophonic Cipher --- */
