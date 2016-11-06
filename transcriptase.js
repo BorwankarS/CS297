@@ -483,7 +483,29 @@ function thirdLayerEncryption(input) {
           }
         }
       }
-    console.log(randomString);
+    temp="";
+    j=0;
+    i=0;
+    while(i<randomString.length-1){
+      temp=temp+"\nfunction " + randomString[i]+" (";
+      i++;
+      if(i===randomString.length){break;}
+      if((randomString.length-i-3>0)) {
+        for (j=0;j<2;j++){
+          temp=temp+randomString[i]+",";
+          i++;
+          if(i===randomString.length){break;}
+        }
+      }
+        temp=temp+randomString[i]+") {\n";
+        i++;
+        if(i===randomString.length){break;}
+        temp=temp+randomString[i]+"++;\n";
+        i++;
+        if(i===randomString.length){break;}
+        temp=temp+"return "+randomString[i]+"; \n}\n"
+    }
+    writeToFile(temp.toLowerCase(),"finalOutput.js");
     return randomString;
 }
 
