@@ -16,6 +16,8 @@ var generatedKey = KeyGeneration(tokenized[1]);
 //console.log(generatedKey);
 var encrpytedString = secondLayerEncryption(tokenized[0],generatedKey);
 
+var randomStringFormation= thirdLayerEncryption(encrpytedString);
+
 
 //First Layer of Encryption : XOR with the random number
 function firstLayerEncryption(input) {
@@ -449,6 +451,40 @@ function secondLayerEncryption(input,key) {
 }
 
 function thirdLayerEncryption(input) {
+    console.log("inside thirdLayerEncryption function");
+    var i=0;
+    var j=0;
+    var k=0;
+    var temp="";
+    var randomString=[];
+    var flag=true;
+    for (i=0; i<input.length;i++) {
+      if(flag===true) {
+        temp = temp+ input[i];
+        j++;
+        if (j===5) {
+          flag=false;
+          randomString[k]=temp;
+
+          k=k+1;
+          temp="";
+          j=0;
+        }
+      }
+      else  if (flag === false) {
+          temp = temp+input[i];
+          j++;
+          if (j===7){
+            flag= true;
+            randomString[k]= temp;
+            k++;
+            temp="";
+            j=0;
+          }
+        }
+      }
+    console.log(randomString);
+    return randomString;
 }
 
 /*--- Write to File---*/
