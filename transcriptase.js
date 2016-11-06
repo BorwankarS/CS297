@@ -11,10 +11,10 @@ outputHex = convertToHex(output);
    tokenized[1] = frequency count of tokens in descending order
 */
 var tokenized = countFrequncy(outputHex);
-console.log(tokenized[0]);
-var generatedKey = secondLayerEncryption(tokenized[1]);
-console.log(generatedKey);
-
+//console.log(tokenized[0]);
+var generatedKey = KeyGeneration(tokenized[1]);
+//console.log(generatedKey);
+var encrpytedString = secondLayerEncryption(tokenized[0],generatedKey);
 
 
 //First Layer of Encryption : XOR with the random number
@@ -72,7 +72,7 @@ function countFrequncy(input) {
       k++;
     }
   }
-  writeToFile(tokenStream);
+  writeToFile(tokenStream,"output.js");
 
   i=0;
   j=0;
@@ -141,7 +141,7 @@ function countFrequncy(input) {
 }
 
 /* --- Homophonic Cipher --- */
-function secondLayerEncryption(input) {
+function KeyGeneration(input) {
   var englishAlphaFreq = ["E","T","A","O","I","N","S","R","H","D","L","U","C",
                           "M","F","Y","W","G","P","B","V","K","X","Q","J","Z"];
   var keyGenerator = [];
@@ -160,12 +160,300 @@ function secondLayerEncryption(input) {
 }
 
 
+function secondLayerEncryption(input,key) {
+  output = [];
+  var temp="";
+  var randomIndex;
+  var i=0,j=0;
+  for (i=0; i<input.length;i++) {
+    switch (input[i]) {
+      case '0':
+        if (key['zero'].length ===1) {
+          output[j] = key['zero'];
+        }
+        else {
+          temp=key['zero'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['zero'].charAt(1);
+          }
+          else {
+            output[j]=key['zero'].charAt(0);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case '1':
+        if (key['one'].length ===1) {
+          output[j] = key['one'];
+        }
+        else {
+          temp=key['one'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['one'].charAt(0);
+          }
+          else {
+            output[j]=key['one'].charAt(1);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case '2':
+        if (key['two'].length ===1) {
+          output[j] = key['two'];
+        }
+        else {
+          temp=key['two'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['two'].charAt(1);
+          }
+          else {
+            output[j]=key['two'].charAt(0);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case '3':
+        if (key['three'].length ===1) {
+          output[j] = key['three'];
+        }
+        else {
+          temp=key['three'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['three'].charAt(0);
+          }
+          else {
+            output[j]=key['three'].charAt(1);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case '4':
+          if (key['four'].length ===1) {
+            output[j] = key['four'];
+          }
+          else {
+            temp=key['four'];
+            randomIndex=(Math.random()*(100-1)+1);
+            if (randomIndex  <=50){
+              output[j]=key['four'].charAt(1);
+            }
+            else {
+              output[j]=key['four'].charAt(0);
+            }
+          }
+          temp="";
+          randomIndex=0;
+        break;
+      case '5':
+        if (key['five'].length ===1) {
+          output[j] = key['five'];
+        }
+        else {
+          temp=key['five'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['five'].charAt(0);
+          }
+          else {
+            output[j]=key['five'].charAt(1);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case '6':
+        if (key['six'].length ===1) {
+          output[j] = key['six'];
+        }
+        else {
+          temp=key['six'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['six'].charAt(1);
+          }
+          else {
+            output[j]=key['six'].charAt(0);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case '7':
+        if (key['seven'].length ===1) {
+          output[j] = key['seven'];
+        }
+        else {
+          temp=key['seven'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['seven'].charAt(0);
+          }
+          else {
+            output[j]=key['seven'].charAt(1);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case '8':
+        if (key['eight'].length ===1) {
+          output[j] = key['eight'];
+        }
+        else {
+          temp=key['eight'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['eight'].charAt(1);
+          }
+          else {
+            output[j]=key['eight'].charAt(0);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case '9':
+        if (key['nine'].length ===1) {
+          output[j] = key['nine'];
+        }
+        else {
+          temp=key['nine'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['nine'].charAt(0);
+          }
+          else {
+            output[j]=key['nine'].charAt(1);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case 'a':
+        if (key['a'].length ===1) {
+          output[j] = key['a'];
+        }
+        else {
+          temp=key['a'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['a'].charAt(1);
+          }
+          else {
+            output[j]=key['a'].charAt(0);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case 'b':
+        if (key['b'].length ===1) {
+          output[j] = key['b'];
+        }
+        else {
+          temp=key['b'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['b'].charAt(0);
+          }
+          else {
+            output[j]=key['b'].charAt(1);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case 'c':
+        if (key['c'].length ===1) {
+          output[j] = key['c'];
+        }
+        else {
+          temp=key['c'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['c'].charAt(1);
+          }
+          else {
+            output[j]=key['c'].charAt(0);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case 'd':
+        if (key['d'].length ===1) {
+          output[j] = key['d'];
+        }
+        else {
+          temp=key['d'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['d'].charAt(0);
+          }
+          else {
+            output[j]=key['d'].charAt(1);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case 'e':
+        if (key['e'].length ===1) {
+          output[j] = key['e'];
+        }
+        else {
+          temp=key['e'];
+          randomIndex=(Math.random()*(100-1)+1);
+          if (randomIndex  <=50){
+            output[j]=key['e'].charAt(1);
+          }
+          else {
+            output[j]=key['e'].charAt(0);
+          }
+        }
+        temp="";
+        randomIndex=0;
+        break;
+      case 'f':
+      if (key['f'].length ===1) {
+        output[j] = key['f'];
+      }
+      else {
+        temp=key['f'];
+        randomIndex=(Math.random()*(100-1)+1);
+        if (randomIndex  <=50){
+          output[j]=key['f'].charAt(0);
+        }
+        else {
+          output[j]=key['f'].charAt(1);
+        }
+      }
+      temp="";
+      randomIndex=0;
+        break;
+      default:
+        break;
+    }
+    j++;
+  }
+  writeToFile(output,"encrypted.js")
+  return output;
+}
+
 function thirdLayerEncryption(input) {
 }
 
 /*--- Write to File---*/
-function writeToFile(input) {
-  fs.writeFile("output.js",input,'utf8', function(err) {
+function writeToFile(input,fileName) {
+  fs.writeFile(fileName,input,'utf8', function(err) {
       if(err) {
           return console.log(err);
       }
