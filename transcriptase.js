@@ -16,7 +16,7 @@ var generatedKey = KeyGeneration(tokenized[1]);
 //console.log(generatedKey);
 var encrpytedString = secondLayerEncryption(tokenized[0],generatedKey);
 
-var randomStringFormation= thirdLayerEncryption(encrpytedString);
+var randomStringFormation= thirdLayerEncryption(encrpytedString,generatedKey);
 
 
 //First Layer of Encryption : XOR with the random number
@@ -35,7 +35,11 @@ function convertToHex(input) {
   var output = [];
   for (i in input) {
     output[i] = (input[i].charCodeAt(0)).toString(16);
+    if (output[i].length!=2) {
+      output[i]="0"+output[i];
+    }
   }
+  console.log(output);
   countFrequncy(output);
   return output;
 }
@@ -450,12 +454,19 @@ function secondLayerEncryption(input,key) {
   return output;
 }
 
-function thirdLayerEncryption(input) {
+function thirdLayerEncryption(input,key) {
     console.log("inside thirdLayerEncryption function");
     var i=0;
     var j=0;
     var k=0;
+    var temp2="";
     var temp="";
+    for (var count in key) {
+      temp2=temp2+count+"?";
+    }
+    temp2=temp2+"\n";
+    console.log(temp2);
+    i=0;
     var randomString=[];
     var flag=true;
     for (i=0; i<input.length;i++) {
@@ -464,12 +475,12 @@ function thirdLayerEncryption(input) {
         j++;
         if (j===5) {
           flag=false;
-          randomString[k]=temp;
 
           k=k+1;
           temp="";
           j=0;
         }
+        randomString[k]=temp;
       }
       else  if (flag === false) {
           temp = temp+input[i];
@@ -497,14 +508,15 @@ function thirdLayerEncryption(input) {
           if(i===randomString.length){break;}
         }
       }
-        temp=temp+randomString[i]+") {\n";
+        temp=temp+randomString[i]+") {\n\t";
         i++;
         if(i===randomString.length){break;}
         temp=temp+randomString[i]+"++;\n";
         i++;
         if(i===randomString.length){break;}
-        temp=temp+"return "+randomString[i]+"; \n}\n"
+        temp=temp+"\treturn "+randomString[i]+"; \n}\n"
     }
+    temp=temp2+temp;
     writeToFile(temp.toLowerCase(),"finalOutput.js");
     return randomString;
 }
