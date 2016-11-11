@@ -3,7 +3,7 @@ var seedrandom = require('seedrandom');
 var rng = seedrandom(1);
 
 seedrandom(1, {global: true});
-var expression = /[^\n\s\r]/igm;
+var expression = /[^\n\r]/igm;
 var input=fs.readFileSync('./input.js','utf8').match(expression);
 output = firstLayerEncryption(input);
 outputHex = convertToHex(output);
@@ -26,6 +26,7 @@ function firstLayerEncryption(input) {
   for ( i in input) {
     output[i] = String.fromCharCode((input[i].charCodeAt(0)) ^ (Math.random()*(255-1)+1));
   }
+  writeToFile(output,"AsciiEncoded.js");
   return output;
 }
 
@@ -33,6 +34,7 @@ function firstLayerEncryption(input) {
 function convertToHex(input) {
   var i;
   var output = [];
+  console.log("\nInput to convertToHex is :"+input+"\n");
   for (i in input) {
     output[i] = (input[i].charCodeAt(0)).toString(16);
     if (output[i].length!=2) {
@@ -467,7 +469,10 @@ function thirdLayerEncryption(input,key) {
     temp2=temp2+"\n";
     console.log(temp2);
     i=0;
-    var randomString=[];
+    for (i=0;i<input.length;i++){
+      temp=temp+input[i];
+    }
+    /*var randomString=[];
     var flag=true;
     for (i=0; i<input.length;i++) {
       if(flag===true) {
@@ -515,8 +520,9 @@ function thirdLayerEncryption(input,key) {
         i++;
         if(i===randomString.length){break;}
         temp=temp+"\treturn "+randomString[i]+"; \n}\n"
-    }
+    }*/
     temp=temp2+temp;
+    var randomString=temp;
     writeToFile(temp.toLowerCase(),"finalOutput.js");
     return randomString;
 }
