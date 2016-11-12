@@ -14,6 +14,8 @@ var asciiEncoded= convertToASCII(message);
 writeToFile(asciiEncoded,"asciiEncoded.js")
 var decodedMessage= xOrValue(asciiEncoded);
 console.log("\nMessage is: "+decodedMessage);
+writeToFile(decodedMessage,"DecodedMessage.js");
+
 function restoreKey(input) {
   var i=0;
   var englishAlphaFreq = ["E","T","A","O","I","N","S","R","H","D","L","U","C",
@@ -134,7 +136,13 @@ function xOrValue(input) {
   for (i in input){
     output[i] = String.fromCharCode((input[i].charCodeAt(0)) ^ (Math.random()*(255-1)+1));
   }
-  return output;
+  var temp="";
+  for (i in output) {
+    if (output[i] != ','){
+      temp = temp+output[i];
+    }
+  }
+  return temp//Original output;
 }
 
 

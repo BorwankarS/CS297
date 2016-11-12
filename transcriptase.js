@@ -3,8 +3,8 @@ var seedrandom = require('seedrandom');
 var rng = seedrandom(1);
 
 seedrandom(1, {global: true});
-var expression = /[^\n\r]/igm;
-var input=fs.readFileSync('./input.js','utf8').match(expression);
+var expression = /[^\r]/igm;
+var input=fs.readFileSync('./input2.js','utf8').match(expression);
 output = firstLayerEncryption(input);
 outputHex = convertToHex(output);
 /* tokenized[0] = token stream of input
