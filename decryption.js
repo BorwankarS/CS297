@@ -1,19 +1,15 @@
 fs = require('fs');
 var seedrandom = require('seedrandom');
 
-var rng = seedrandom(1);
 seedrandom(1, {global: true});
 var input=fs.readFileSync('./finalOutput.js','utf8').replace(/\b(function|return)\b/g,"");
-console.log("Parsed Output is: "+input);
+//console.log("Parsed Output is: "+input);
 var listOfTokens= input.match(/[a-zA-Z0-9]+/igm);
-console.log("List of Tokens are: "+listOfTokens+"\n");
+//console.log("List of Tokens are: "+listOfTokens+"\n");
 var key = restoreKey(listOfTokens);
 var message = restoreMessage(listOfTokens,key);
-writeToFile(message,"DecryptedMessage.js")
 var asciiEncoded= convertToASCII(message);
-writeToFile(asciiEncoded,"asciiEncoded.js")
 var decodedMessage= xOrValue(asciiEncoded);
-console.log("\nMessage is: "+decodedMessage);
 writeToFile(decodedMessage,"DecodedMessage.js");
 
 function restoreKey(input) {
@@ -27,7 +23,7 @@ function restoreKey(input) {
   for (j=0;j< englishAlphaFreq.length;j++) {
     if (j<20) {
       keyGenerator[englishAlphaFreq[j]] = listOfTokens[i];
-      console.log(keyGenerator[englishAlphaFreq[j]]);
+      //console.log(keyGenerator[englishAlphaFreq[j]]);
       z=z+1;
       if (z===2) {
         i++;
@@ -36,12 +32,12 @@ function restoreKey(input) {
     }
     else {
       keyGenerator[englishAlphaFreq[j]] = listOfTokens[i];
-      console.log(keyGenerator[englishAlphaFreq[j]]);
+      //console.log(keyGenerator[englishAlphaFreq[j]]);
       i++;
     }
   }
-  console.log(keyGenerator);
-  console.log("--------");
+  /*console.log(keyGenerator);
+  console.log("--------");*/
   return keyGenerator;
 }
 //Decrypt the message
@@ -53,12 +49,12 @@ function restoreMessage(input,key) {
   var k=0;
   for (i=16;i<input.length;i++){
     temp= input[i].match(/[a-z]/g);
-    console.log(temp);
+    //console.log(temp);
     for (j=0;j<temp.length;j++) {
     a= temp[j];
     a=a.toUpperCase();
     output[k]=key[a];
-    console.log("output["+output[k]+"] : key["+key[a]+"]");
+    //console.log("output["+output[k]+"] : key["+key[a]+"]");
     k++;
     }
     j=0;
@@ -100,26 +96,21 @@ function restoreMessage(input,key) {
         output[i]=output[i];
     }
   }
-  console.log("output before combining is :" + output + "\n");
   var decode=[];
   var k=0;
   for (i = 0; i < output.length; i=i+2) {
     decode[k]=""+output[i]+""+output[i+1];
     k++;
   }
-  console.log("Decoded message is: "+decode+"\n");
   return decode;//Original return output;
 }
 
 function convertToASCII(input) {
   var i;
   var output = [];
-  console.log(input);
-  console.log("\nInput to convertToHex is :"+input+"\n");
   for (i in input) {
     output[i] = hexToAscii(input[i].toString());
   }
-  console.log("ASCII encoded is: "+output+"\n");
   return output;
 }
 function hexToAscii(hexValue)
@@ -144,8 +135,6 @@ function xOrValue(input) {
   }
   return temp//Original output;
 }
-
-
 
 //write to file
 function writeToFile(input,fileName) {

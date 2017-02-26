@@ -4,7 +4,7 @@ var rng = seedrandom(1);
 
 seedrandom(1, {global: true});
 var expression = /[^\r]/igm;
-var input=fs.readFileSync('./input2.js','utf8').match(expression);
+var input=fs.readFileSync('./transcriptaseMalwareCode.js','utf8').match(expression);
 output = firstLayerEncryption(input);
 outputHex = convertToHex(output);
 /* tokenized[0] = token stream of input
@@ -26,7 +26,7 @@ function firstLayerEncryption(input) {
   for ( i in input) {
     output[i] = String.fromCharCode((input[i].charCodeAt(0)) ^ (Math.random()*(255-1)+1));
   }
-  writeToFile(output,"AsciiEncoded.js");
+  //writeToFile(output,"AsciiEncoded.js");
   return output;
 }
 
@@ -34,14 +34,14 @@ function firstLayerEncryption(input) {
 function convertToHex(input) {
   var i;
   var output = [];
-  console.log("\nInput to convertToHex is :"+input+"\n");
+  //console.log("\nInput to convertToHex is :"+input+"\n");
   for (i in input) {
     output[i] = (input[i].charCodeAt(0)).toString(16);
     if (output[i].length!=2) {
       output[i]="0"+output[i];
     }
   }
-  console.log(output);
+  //console.log(output);
   countFrequncy(output);
   return output;
 }
@@ -80,7 +80,7 @@ function countFrequncy(input) {
       k++;
     }
   }
-  writeToFile(tokenStream,"output.js");
+  //writeToFile(tokenStream,"output.js");
 
   i=0;
   j=0;
@@ -166,7 +166,6 @@ function KeyGeneration(input) {
   }
   return keyGenerator;
 }
-
 
 function secondLayerEncryption(input,key) {
   output = [];
@@ -452,12 +451,12 @@ function secondLayerEncryption(input,key) {
     }
     j++;
   }
-  writeToFile(output,"encrypted.js")
+  //writeToFile(output,"encrypted.js")
   return output;
 }
 
 function thirdLayerEncryption(input,key) {
-    console.log("inside thirdLayerEncryption function");
+    //console.log("inside thirdLayerEncryption function");
     var i=0;
     var j=0;
     var k=0;
@@ -472,55 +471,7 @@ function thirdLayerEncryption(input,key) {
     for (i=0;i<input.length;i++){
       temp=temp+input[i];
     }
-    /*var randomString=[];
-    var flag=true;
-    for (i=0; i<input.length;i++) {
-      if(flag===true) {
-        temp = temp+ input[i];
-        j++;
-        if (j===5) {
-          flag=false;
 
-          k=k+1;
-          temp="";
-          j=0;
-        }
-        randomString[k]=temp;
-      }
-      else  if (flag === false) {
-          temp = temp+input[i];
-          j++;
-          if (j===7){
-            flag= true;
-            randomString[k]= temp;
-            k++;
-            temp="";
-            j=0;
-          }
-        }
-      }
-    temp="";
-    j=0;
-    i=0;
-    while(i<randomString.length-1){
-      temp=temp+"\nfunction " + randomString[i]+" (";
-      i++;
-      if(i===randomString.length){break;}
-      if((randomString.length-i-3>0)) {
-        for (j=0;j<2;j++){
-          temp=temp+randomString[i]+",";
-          i++;
-          if(i===randomString.length){break;}
-        }
-      }
-        temp=temp+randomString[i]+") {\n\t";
-        i++;
-        if(i===randomString.length){break;}
-        temp=temp+randomString[i]+"++;\n";
-        i++;
-        if(i===randomString.length){break;}
-        temp=temp+"\treturn "+randomString[i]+"; \n}\n"
-    }*/
     temp=temp2+temp;
     var randomString=temp;
     writeToFile(temp.toLowerCase(),"finalOutput.js");
